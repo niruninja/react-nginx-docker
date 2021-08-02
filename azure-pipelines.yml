@@ -50,8 +50,8 @@ stages:
         echo $(billOfMaterials)
         cat $(billOfMaterials)
 
-        echo $(vulnerabilities)
-        cat $(vulnerabilities)    
+#        echo $(vulnerabilities)
+#        cat $(vulnerabilities)    
 
 #    - task: dependency-check-build-task@6
 #      inputs:
