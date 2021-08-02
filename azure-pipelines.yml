@@ -50,8 +50,8 @@ stages:
         echo $(billOfMaterials)
         cat $(billOfMaterials)
 
-#        echo $(vulnerabilities)
-#        cat $(vulnerabilities)    
+        echo $(vulnerabilities)
+        cat $(vulnerabilities)    
 
 #    - task: dependency-check-build-task@6
 #      inputs:
@@ -68,7 +68,7 @@ stages:
 
     - task: PublishTestResults@2
       inputs:
-        testResultsFormat: 'JUNIT'
-        testResultsFiles: 'anchore-reports/*.json'
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'anchore-reports/contents.json'
         searchFolder: '$(Common.TestResultsDirectory)'
         testRunTitle: 'Anchore'
