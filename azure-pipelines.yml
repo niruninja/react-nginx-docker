@@ -46,7 +46,7 @@ stages:
     - task: dependency-check-build-task@6
       inputs:
         projectName: 'Dependency Check'
-        scanPath: '*'
+        scanPath: '/app/*'
         format: 'JUNIT'
 
     - task: PublishTestResults@2
