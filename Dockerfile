@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 
-FROM nginx:alpine
+FROM nginx:1.19.5-alpine
 
 #!/bin/sh
 
