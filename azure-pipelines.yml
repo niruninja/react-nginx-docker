@@ -42,19 +42,29 @@ stages:
       inputs:
         image: '$(containerRegistry)/$(imageRepository):$(tag)'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        failBuild: true
+    
+    - script: |
+        echo $(policyStatus)
 
-    - task: dependency-check-build-task@6
-      inputs:
-        projectName: 'Dependency Check'
-        scanPath: '*'
-        format: 'JUNIT'
+        echo $(billOfMaterials)
+        cat $(billOfMaterials)
 
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: 'dependency-check/*junit.xml'
-        searchFolder: '$(Common.TestResultsDirectory)'
-        testRunTitle: 'Dependency Check'
+        echo $(vulnerabilities)
+        cat $(vulnerabilities)    
+
+#    - task: dependency-check-build-task@6
+#      inputs:
+#        projectName: 'Dependency Check'
+#        scanPath: '*'
+#        format: 'JUNIT'
+
+#    - task: PublishTestResults@2
+#      inputs:
+#        testResultsFormat: 'JUnit'
+#        testResultsFiles: 'dependency-check/*junit.xml'
+#        searchFolder: '$(Common.TestResultsDirectory)'
+#        testRunTitle: 'Dependency Check'
 
     - task: PublishTestResults@2
       inputs:
