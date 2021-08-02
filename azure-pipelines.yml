@@ -47,7 +47,7 @@ stages:
       inputs:
         projectName: 'Dependency Check'
         scanPath: '*'
-        format: 'HTML'
+        format: 'JUNIT'
 
     - task: PublishTestResults@2
       inputs:
