@@ -38,15 +38,15 @@ stages:
         tags: |
           $(tag)
           
-#    - task: Anchore@0
-#      inputs:
-#        image: '$(containerRegistry)/$(imageRepository):$(tag)'
-#        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    - task: Anchore@0
+      inputs:
+        image: '$(containerRegistry)/$(imageRepository):$(tag)'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
 
     - task: dependency-check-build-task@6
       inputs:
         projectName: 'Dependency Check'
-        scanPath: '**/app/*.json'
+        scanPath: '*'
         format: 'JUNIT'
 
     - task: PublishTestResults@2
@@ -55,3 +55,10 @@ stages:
         testResultsFiles: 'dependency-check/*junit.xml'
         searchFolder: '$(Common.TestResultsDirectory)'
         testRunTitle: 'Dependency Check'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUNIT'
+        testResultsFiles: 'anchore-reports/*.json'
+        searchFolder: '$(Common.TestResultsDirectory)'
+        testRunTitle: 'Anchore'
