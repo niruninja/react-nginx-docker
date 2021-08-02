@@ -52,6 +52,6 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'dependency-check\*junit.xml'
-        searchFolder: '$(COMMON_TESTRESULTSDIRECTORY)'
+        testResultsFiles: 'dependency-check/*junit.xml'
+        searchFolder: '$(Common.TestResultsDirectory)'
         testRunTitle: 'Dependency Check'
