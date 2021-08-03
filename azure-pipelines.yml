@@ -54,7 +54,8 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-          
+    
+
 #    - task: Anchore@0
 #      inputs:
 #        image: '$(containerRegistry)/$(imageRepository):$(tag)'
@@ -105,7 +106,4 @@ stages:
 #        downloadPath: '$(Common.TestResultsDirectory)'
 
 
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+
