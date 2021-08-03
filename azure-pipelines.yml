@@ -19,6 +19,9 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+
+
+steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'sonarcloud SC'
@@ -26,7 +29,7 @@ variables:
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'niruninja.react-nginx-docker'
-    cliProjectName: 'niruninja.react-nginx-docker'
+    cliProjectName: 'first'
     cliSources: '.'
 
 stages:
