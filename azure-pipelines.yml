@@ -38,33 +38,34 @@ stages:
         tags: |
           $(tag)
           
-    - task: Anchore@0
-      inputs:
-        image: '$(containerRegistry)/$(imageRepository):$(tag)'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        failBuild: true
-        includeAppPackages: true
+#    - task: Anchore@0
+#      inputs:
+#        image: '$(containerRegistry)/$(imageRepository):$(tag)'
+#        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+#        failBuild: true
+#        includeAppPackages: true
     
-    - script: |
-        echo $(policyStatus)
-        echo $(billOfMaterials)
-        cat $(billOfMaterials)
-        echo $(vulnerabilities)
-        cat $(vulnerabilities)    
+#    - script: |
+#        echo $(policyStatus)
+#        echo $(billOfMaterials)
+#        cat $(billOfMaterials)
+#        echo $(vulnerabilities)
+#        cat $(vulnerabilities)    
 
-    - task: dependency-check-build-task@6
-      inputs:
-        projectName: 'Dependency Check'
-        scanPath: '*'
-        format: 'JUNIT'
+#    - task: dependency-check-build-task@6
+#      inputs:
+#        projectName: 'Dependency Check'
+#        scanPath: '*'
+#        format: 'JUNIT'
 
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: 'dependency-check/*junit.xml'
-        searchFolder: '$(Common.TestResultsDirectory)'
-        testRunTitle: 'Dependency Check'
+#    - task: PublishTestResults@2
+#      inputs:
+#        testResultsFormat: 'JUnit'
+#        testResultsFiles: 'dependency-check/*junit.xml'
+#        searchFolder: '$(Common.TestResultsDirectory)'
+#        testRunTitle: 'Dependency Check'
 
+#--------------to test------------------
 #Publishing anchore build output back to pipeline as a artifact
 #    - task: PublishTestResults@2
 #      inputs:
@@ -85,4 +86,8 @@ stages:
 #        artifactName: 'anchore'
 #        itemPattern: '*.json'
 #        downloadPath: '$(Common.TestResultsDirectory)'
+
+    - task: WhiteSource@21
+      inputs:
+        projectName: 'react-nginx'
 
