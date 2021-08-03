@@ -46,36 +46,42 @@ stages:
     
     - script: |
         echo $(policyStatus)
-
         echo $(billOfMaterials)
         cat $(billOfMaterials)
-
         echo $(vulnerabilities)
         cat $(vulnerabilities)    
 
-#    - task: dependency-check-build-task@6
-#      inputs:
-#        projectName: 'Dependency Check'
-#        scanPath: '*'
-#        format: 'JUNIT'
+    - task: dependency-check-build-task@6
+      inputs:
+        projectName: 'Dependency Check'
+        scanPath: '*'
+        format: 'JUNIT'
 
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'dependency-check/*junit.xml'
+        searchFolder: '$(Common.TestResultsDirectory)'
+        testRunTitle: 'Dependency Check'
+
+#Publishing anchore build output back to pipeline as a artifact
 #    - task: PublishTestResults@2
 #      inputs:
 #        testResultsFormat: 'JUnit'
-#        testResultsFiles: 'dependency-check/*junit.xml'
+#        testResultsFiles: '/anchore-reports/*.json'
 #        searchFolder: '$(Common.TestResultsDirectory)'
-#        testRunTitle: 'Dependency Check'
-
-    - task: PublishTestResults@2
+#        testRunTitle: 'Anchore'
+#    - task: PublishTestResults@2
+#      inputs:
+#        testResultsFormat: 'JUnit'
+#        testResultsFiles: 'anchore-reports/*s.json'
+#        searchFolder: '$(Common.TestResultsDirectory)'
+#        testRunTitle: 'Anchore1'
+    - task: DownloadBuildArtifacts@1
       inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: '/anchore-reports/*.json'
-        searchFolder: '$(Common.TestResultsDirectory)'
-        testRunTitle: 'Anchore'
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFormat: 'JUnit'
-        testResultsFiles: 'anchore-reports/*s.json'
-        searchFolder: '$(Common.TestResultsDirectory)'
-        testRunTitle: 'Anchore1'
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'anchore'
+        itemPattern: '*.json'
+        downloadPath: '$(Common.TestResultsDirectory)'
 
