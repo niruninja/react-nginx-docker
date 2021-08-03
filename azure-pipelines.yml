@@ -43,6 +43,7 @@ stages:
         image: '$(containerRegistry)/$(imageRepository):$(tag)'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         failBuild: true
+        includeAppPackages: true
     
     - script: |
         echo $(policyStatus)
@@ -77,11 +78,11 @@ stages:
 #        testResultsFiles: 'anchore-reports/*s.json'
 #        searchFolder: '$(Common.TestResultsDirectory)'
 #        testRunTitle: 'Anchore1'
-    - task: DownloadBuildArtifacts@1
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'anchore'
-        itemPattern: '*.json'
-        downloadPath: '$(Common.TestResultsDirectory)'
+#    - task: DownloadBuildArtifacts@1
+#      inputs:
+#        buildType: 'current'
+#        downloadType: 'single'
+#        artifactName: 'anchore'
+#        itemPattern: '*.json'
+#        downloadPath: '$(Common.TestResultsDirectory)'
 
