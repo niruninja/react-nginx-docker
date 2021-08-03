@@ -21,25 +21,29 @@ variables:
 
 
 
-steps:
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'sonarcloud SC'
-    organization: 'niranjanmarch'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'niruninja.react-nginx-docker'
-    cliProjectName: 'first'
-    cliSources: '.'
+
 
 stages:
 - stage: Build
   displayName: Build and push stage
+
   jobs:
   - job: Build
     displayName: Build
     pool:
       vmImage: $(vmImageName)
+    
+    steps:
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'sonarcloud SC'
+        organization: 'niranjanmarch'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'niruninja.react-nginx-docker'
+        cliProjectName: 'first'
+        cliSources: '
+
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
