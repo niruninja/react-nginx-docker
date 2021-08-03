@@ -42,7 +42,8 @@ stages:
         configMode: 'manual'
         cliProjectKey: 'niruninja.react-nginx-docker'
         cliProjectName: 'first'
-        cliSources: '
+        cliSources: '.'
+        
 
     steps:
     - task: Docker@2
