@@ -19,6 +19,16 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud SC'
+    organization: 'niranjanmarch'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'niruninja.react-nginx-docker'
+    cliProjectName: 'niruninja.react-nginx-docker'
+    cliSources: '.'
+
 stages:
 - stage: Build
   displayName: Build and push stage
@@ -87,7 +97,8 @@ stages:
 #        itemPattern: '*.json'
 #        downloadPath: '$(Common.TestResultsDirectory)'
 
-    - task: WhiteSource@21
-      inputs:
-        projectName: 'react-nginx'
 
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
