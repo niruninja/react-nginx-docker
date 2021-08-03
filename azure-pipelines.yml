@@ -69,6 +69,13 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'anchore-reports/contents.json'
+        testResultsFiles: '/anchore-reports/*.json'
         searchFolder: '$(Common.TestResultsDirectory)'
         testRunTitle: 'Anchore'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'anchore-reports/*s.json'
+        searchFolder: '$(Common.TestResultsDirectory)'
+        testRunTitle: 'Anchore1'
+
